@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PassIn.Communication.Responses
 {
-    public class ResponseRegisteredEventJson
+    public class ResponseRegisteredJson
     {
         public Guid Id { get; set; }
     }

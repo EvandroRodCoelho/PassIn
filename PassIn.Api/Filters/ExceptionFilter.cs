@@ -32,6 +32,11 @@ namespace PassIn.Api.Filters
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 context.Result = new BadRequestObjectResult(new ResponseErrorJson(context.Exception.Message));
             }
+            else if (context.Exception is ConfictException)
+            {
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Conflict;
+                context.Result = new ConflictObjectResult(new ResponseErrorJson(context.Exception.Message));
+            }
         }
         private void ThrowUnknowError(ExceptionContext context) {
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
