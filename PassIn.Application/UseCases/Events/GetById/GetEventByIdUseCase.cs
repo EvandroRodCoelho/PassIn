@@ -16,7 +16,7 @@ namespace PassIn.Application.UseCases.Events.GetById
         {
             var dbContext = new PassInDbContext();
 
-            var entity = dbContext.Events.FirstOrDefault(e => e.Id == id);
+            var entity = dbContext.Events.Include(ev => ev.Attendees).FirstOrDefault(e => e.Id == id);
 
             if (entity is null)
                 throw new NotFoundException("An event with this id does not exist.");
@@ -27,7 +27,7 @@ namespace PassIn.Application.UseCases.Events.GetById
                 Title = entity.Title,
                 Details = entity.Details,
                 MaximumAttendees = entity.Maximum_Attendees,
-                AttendeesAmount = -1
+                AttendeesAmount = entity.Attendees.Count()
             };
 
         }
