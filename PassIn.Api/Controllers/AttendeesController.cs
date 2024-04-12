@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PassIn.Application.UseCases.Ateendees.GetAllByEventId;
 using PassIn.Application.UseCases.Events.RegisterAttendee;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
@@ -27,10 +26,10 @@ namespace PassIn.Api.Controllers
         [Route("{eventId}")]
         [ProducesResponseType(typeof(ResponseAllAttendeesJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-        public IActionResult GetAll([FromRoute] Guid eventId)
+        public IActionResult GetAll([FromRoute] Guid eventId, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10,[FromQuery] string nameFilter = null)
         {
             var useCase = new GetAllByEventIdUseCase();
-            var response = useCase.Execute(eventId);
+            var response = useCase.Execute(eventId, nameFilter ,pageSize, pageIndex);
             return Ok(response);
         }
     }
